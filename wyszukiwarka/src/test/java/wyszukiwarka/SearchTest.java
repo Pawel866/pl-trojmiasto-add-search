@@ -50,5 +50,4 @@ public class SearchTest {
 	public void tearDown() throws Exception {
 		driver.quit();
 	}
-
 }

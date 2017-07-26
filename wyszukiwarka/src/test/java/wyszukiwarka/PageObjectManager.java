@@ -34,5 +34,4 @@ public class PageObjectManager {
 		}
 		return searchResultsPage;
 	}
-
 }
