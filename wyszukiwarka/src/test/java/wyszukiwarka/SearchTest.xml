@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:InputTestData xmlns:ns2="urn:org:easetech:easytest:1.0">
+	<TestMethod name="audiSearchTest">
+		<TestRecord id="1">
+			<InputData>
+				<Entry key="brand" value="Audi" />
+				<Entry key="model" value="A8" />
+				<Entry key="engine" value="diesel" />
+				<Entry key="airCon" value="Klimatyzacja" />
+				<Entry key="year" value="2005" />
+				<Entry key="city" value="Gdańsk" />
+			</InputData>
+		</TestRecord>
+	</TestMethod>
+</ns2:InputTestData>
