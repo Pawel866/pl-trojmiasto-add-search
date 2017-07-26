@@ -3,6 +3,8 @@ package wyszukiwarka;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SellCarPage {
 	@FindBy(xpath = ".//*[@id='sidebar']/div[1]/div[3]/div[2]")
@@ -26,14 +28,6 @@ public class SellCarPage {
 	@FindBy(xpath = ".//*[@id='body']/div[5]/a")
 	private WebElement returnToSearchResultsPage;
 
-	public void sleep(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public boolean isAllDataWalid(String brand, String mark, String year, String fuel, String airCond, String city) {
 		boolean isCarOK = false;
 		if (isBrandNameValid(brand) == true) {
@@ -50,20 +44,17 @@ public class SellCarPage {
 			}
 		}
 		return isCarOK;
-
 	}
 
-	private final CustomFluentWait customFluentWait;
-	private static final int DEFAULT_TIMEOUT = 20;
+	WebDriverWait element;
 
 	public SellCarPage(WebDriver driver) {
-		customFluentWait = new CustomFluentWait(driver);
+		element = new WebDriverWait(driver, 20);
 	}
 
 	private boolean isBrandNameValid(String brand) {
 		boolean brandValid = false;
-		customFluentWait.waitForElementDisplayed(getBrandName, DEFAULT_TIMEOUT);
-		String brandName = getBrandName.getText().toLowerCase();
+		String brandName = element.until(ExpectedConditions.elementToBeClickable(getBrandName)).getText().toLowerCase();
 		if (brandName.contains(brand.toLowerCase())) {
 			brandValid = true;
 		}
@@ -72,7 +63,6 @@ public class SellCarPage {
 
 	private boolean isCarMarkValid(String mark) {
 		boolean markValid = false;
-		customFluentWait.waitForElementDisplayed(getMarkName, DEFAULT_TIMEOUT);
 		String carMark = getMarkName.getText().toLowerCase();
 		if (carMark.equals(mark.toLowerCase())) {
 			markValid = true;

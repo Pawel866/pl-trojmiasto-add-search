@@ -1,11 +1,11 @@
 package wyszukiwarka;
 
-import wyszukiwarka.CustomFluentWait;
-
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CarAdvertisingPage {
 
@@ -60,14 +60,13 @@ public class CarAdvertisingPage {
 	@FindBy(xpath = ".//*[@id='searchbox-form']/div[2]/input")
 	private WebElement searchButton;
 
-	private final CustomFluentWait customFluentWait;
-	private static final int DEFAULT_TIMEOUT = 20;
+	WebDriverWait element;
 
 	public CarAdvertisingPage(WebDriver driver) {
-		customFluentWait = new CustomFluentWait(driver);
+		element = new WebDriverWait(driver, 20);
 	}
 
-	private void sleep(int time) {
+	private void sleepTime(int time) {
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
@@ -79,44 +78,38 @@ public class CarAdvertisingPage {
 		getPickCarBrandDrop();
 		getInsertCarBrandText(carBrand);
 		getClickCarBrandField();
-		sleep(5000);
+		sleepTime(3000);
 	}
 
 	private void getPickCarBrandDrop() {
-		customFluentWait.waitForElementDisplayed(pickCarBrandDrop, DEFAULT_TIMEOUT);
-		pickCarBrandDrop.click();
+		element.until(ExpectedConditions.elementToBeClickable(pickCarBrandDrop)).click();
 	}
 
 	private void getInsertCarBrandText(String carBrand) {
-		customFluentWait.waitForElementDisplayed(insertCarBrandText, DEFAULT_TIMEOUT);
-		insertCarBrandText.sendKeys(carBrand);
+		element.until(ExpectedConditions.elementToBeClickable(insertCarBrandText)).sendKeys(carBrand);
 	}
 
 	private void getClickCarBrandField() {
-		customFluentWait.waitForElementDisplayed(clickCarBrandField, DEFAULT_TIMEOUT);
-		clickCarBrandField.click();
+		element.until(ExpectedConditions.elementToBeClickable(clickCarBrandField)).click();
 	}
 
 	public void getModel(String carModel) {
 		getPickCarModelDrop();
 		getInsertCarModelText(carModel);
 		getClickCarModelField();
-		sleep(2000);
+		sleepTime(3000);
 	}
 
 	private void getPickCarModelDrop() {
-		customFluentWait.waitForElementDisplayed(pickCarModelDrop, DEFAULT_TIMEOUT);
-		pickCarModelDrop.click();
+		element.until(ExpectedConditions.elementToBeClickable(pickCarModelDrop)).click();
 	}
 
 	private void getInsertCarModelText(String carModel) {
-		customFluentWait.waitForElementDisplayed(insertCarModelText, DEFAULT_TIMEOUT);
-		insertCarModelText.sendKeys(carModel);
+		element.until(ExpectedConditions.elementToBeClickable(insertCarModelText)).sendKeys(carModel);
 	}
 
 	private void getClickCarModelField() {
-		customFluentWait.waitForElementDisplayed(clickCarModelField, DEFAULT_TIMEOUT);
-		clickCarModelField.click();
+		element.until(ExpectedConditions.elementToBeClickable(clickCarModelField)).click();
 	}
 
 	public void getEngine(String type) {
@@ -126,8 +119,7 @@ public class CarAdvertisingPage {
 	}
 
 	private void getEnginFuelDrop() {
-		customFluentWait.waitForElementDisplayed(pickEnginFuelDrop, DEFAULT_TIMEOUT);
-		pickEnginFuelDrop.click();
+		element.until(ExpectedConditions.elementToBeClickable(pickEnginFuelDrop)).click();
 	}
 
 	private void getSelectEngineFuel(String engType) {
@@ -150,7 +142,6 @@ public class CarAdvertisingPage {
 		getFindCity(searCity);
 		getClickCity(searCity);
 		getClickMapSearch();
-
 	}
 
 	private void getClickMapLink() {
@@ -166,7 +157,6 @@ public class CarAdvertisingPage {
 
 	private void getClickCity(String searchCity) {
 		for (WebElement x : clickCity) {
-			customFluentWait.waitForElementDisplayed(x, DEFAULT_TIMEOUT);
 			if ((x.getText().contains(searchCity)) == true) {
 				x.click();
 			}
@@ -180,5 +170,4 @@ public class CarAdvertisingPage {
 	public void getSearchButton() {
 		searchButton.click();
 	}
-
 }
